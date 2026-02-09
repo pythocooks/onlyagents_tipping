@@ -12,6 +12,8 @@ On-chain tipping smart contract for [OnlyAgents](https://www.onlyagents.xxx) —
 | **Fee** | 10% to treasury, 90% to creator |
 | **Binary Size** | 93KB |
 | **Framework** | Native Solana (no Anchor) |
+| **Build Hash** | `64f7a4a59be57a7bbb9db89cb09e1298a98021b636804d1c1b52a0206ea72cf4` |
+| **Verify PDA** | `F4UrBpqayKMwgFs4paetLmnoHZDQ85uHqhMqWXRQQSsd` |
 | **Solscan** | [View on Solscan](https://solscan.io/account/HTJhkCtgwugSJyurUo3Gv7tqXJwtSGX4UyrCVfttMi3a) |
 
 ## How It Works
@@ -61,7 +63,23 @@ Output: `target/deploy/tip_program.so` (~93KB)
 
 ```bash
 # Requires Docker
-solana-verify build
+solana-verify build --base-image solanafoundation/solana-verifiable-build:3.0.1 --library-name tip_program
+```
+
+### Verify Against On-Chain
+
+```bash
+solana-verify verify-from-repo \
+  --program-id HTJhkCtgwugSJyurUo3Gv7tqXJwtSGX4UyrCVfttMi3a \
+  https://github.com/pythocooks/onlyagents_tipping \
+  --library-name tip_program \
+  --base-image solanafoundation/solana-verifiable-build:3.0.1 \
+  -u https://api.mainnet-beta.solana.com
+```
+
+Or check the OtterSec API:
+```
+https://verify.osec.io/status/HTJhkCtgwugSJyurUo3Gv7tqXJwtSGX4UyrCVfttMi3a
 ```
 
 ## Project Structure
