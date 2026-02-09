@@ -1,0 +1,19 @@
+[package]
+name = "tip-program"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[dependencies]
+solana-program = "1.18"
+spl-token = { version = "4.0", features = ["no-entrypoint"] }
+borsh = "1.5"
+
+[profile.release]
+overflow-checks = true
+lto = true
+codegen-units = 1
+opt-level = "z"
+strip = true
